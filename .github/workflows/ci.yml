@@ -1,0 +1,27 @@
+name: Python CI Workflow
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install Dependencies
+        run: python -m pip install ruff pytest
+
+      - name: Run Code Linting
+        run: python -m ruff check .
+
+      - name: Run Automated Tests
+        run: python -m pytest -v
